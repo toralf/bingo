@@ -1,0 +1,9 @@
+README
+=============================================================================
+just simulate the odds of the german lottery "Bingo! Die Umweltlotterie" :
+http://www.lotto-niedersachsen.de/s/managed_html/536/index.html
+
+bingo.pl : small perl scriptlet to do it
+
+bingo.ods : sheet with simulated odds
+
