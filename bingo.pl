@@ -99,44 +99,14 @@ sub PrintTicket ($)	{
 #	count the amount of bingo's (bingo == 5 hits in a line)
 #	lines are horizontal, vertical or diagonal
 #	lines are allowed to cross each other
-#	with 22 drawn numbers up to 8x Bingo's at 1 Ticket would be possible in theory, right ?
 #
-#	an example (no Bingo in the first round and a single-Bingo in the 2nd round):
-#
-# 	$ ./bingo.pl -n 100 -b 1
-# 	create 100 tickets for 1 drawing
-# 	  results:     0x-Bingo: 100
-# 	create 100 drawings for 1 ticket
-# 
-# 	==================
-# 	B  I  N  G  O
-# 	6 24 41 55 75
-# 	9 28 43 46 69
-# 	15 23 40 60 64
-# 	11 29 44 50 66
-# 	8 19 39 54 70
-# 
-# 	drawn: 8 - 16 19 23 24 28 29 - 31 32 39 40 41 - 46 49 50 56 - 64 65 68 69 74
-# 
-# 	B  I  N  G  O
-# 	x  x
-# 	x     x  x
-# 	x  x     x
-# 	x     x
-# 	x  x  x
-# 
-# 	bingo(s): 1
-# 	==================
-# 
-# 	  results:    0x-Bingo: 99    1x-Bingo: 1
-
 sub AnalyzeTicket ($$)	{
 	my ($Ticket, $Drawing) = @_;
 
 	#	create a 5x5 array and mark all positions where a number is drawn
 	#	we use 'x' == TRUE, '' == FALSE
 	#
-	#	the initialization is not really necessary, but be on the safe side
+	#	the initialization is not really necessary, but just be on the safe side
 	#
 	my @Hit = (
 		[ '', '', '', '', '' ],
@@ -205,7 +175,7 @@ sub CountResult ($$$$)	{
 	my $Bingo = AnalyzeTicket ($Ticket, $Drawing);
 	$Result->{$Bingo}++;
 
-	#	print current state after each multi-bingo and finally ofc too
+	#	print current state after each multi-bingoand finally
 	#
 	if ($Bingo > 1 || $IsLast)	{
 		print "  results:";
