@@ -151,8 +151,6 @@ sub AnalyzeTicket ($$)	{
 	#
 	$Bingo++ if ($Hit[4][0] && $Hit[3][1] && $Hit[2][2] && $Hit[1][3] && $Hit[0][4]);
 
-	#	debug, see above for an example output
-	#
 	if ($Bingo >= $main::Debug)	{
 		print "\n==================\n";
 		PrintTicket ($Ticket);
@@ -175,7 +173,7 @@ sub CountResult ($$$$)	{
 	my $Bingo = AnalyzeTicket ($Ticket, $Drawing);
 	$Result->{$Bingo}++;
 
-	#	print current state after each multi-bingoand finally
+	#	print current state after each multi-bingo and finally
 	#
 	if ($Bingo > 1 || $IsLast)	{
 		print "  results:";
@@ -196,13 +194,13 @@ sub CountResult ($$$$)	{
 #	MAIN
 #
 #############################################################################
-$main::Debug = 99;	#	with eg. "2" debug "double Bingo" and above
+$main::Debug = 99;
 
-my $Rounds = 10 * 1000 * 1000;	#	10 millions gives a quick overview
+my $Rounds = 10 * 1000 * 1000;
 
 my @Ticket = ();
 my %Drawing = ();
-my %Result;		# count here all Bingos, the hash key is usually in range of 0-3, rarely 4
+my %Result;
 
 my %h_Opt = ();
 getopts ('b:h?n:', \%h_Opt) or exit (1);
