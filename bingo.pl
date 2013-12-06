@@ -9,6 +9,7 @@ use diagnostics;
 $diagnostics::PRETTY = 1;
 
 use Getopt::Std;
+# use Math::Random::Secure qw(rand);
 
 $| = 1;
 
@@ -26,7 +27,7 @@ sub CreateDrawing ($)	{
 	
 	%{$Drawing} = (
 			map { $_ => 1 }
-			map { splice (@M, int rand scalar @M, 1) }
+			map { splice (@M, int rand (scalar @M), 1) }
 			1..$N
 	);
 }
@@ -73,11 +74,11 @@ sub CreateTicket ($)	{
 	my @O = (61..75);
 	
 	@{$Ticket} = (
-		[ map { splice (@B, int rand scalar @B, 1) } 1..5 ],
-		[ map { splice (@I, int rand scalar @I, 1) } 1..5 ],
-		[ map { splice (@N, int rand scalar @N, 1) } 1..5 ],
-		[ map { splice (@G, int rand scalar @G, 1) } 1..5 ],
-		[ map { splice (@O, int rand scalar @O, 1) } 1..5 ],
+		[ map { splice (@B, int rand (scalar @B), 1) } 1..5 ],
+		[ map { splice (@I, int rand (scalar @I), 1) } 1..5 ],
+		[ map { splice (@N, int rand (scalar @N), 1) } 1..5 ],
+		[ map { splice (@G, int rand (scalar @G), 1) } 1..5 ],
+		[ map { splice (@O, int rand (scalar @O), 1) } 1..5 ],
 	);
 }
 
