@@ -208,28 +208,29 @@ getopts ('b:h?n:', \%h_Opt) or exit (1);
 if (defined $h_Opt{h} || defined $h_Opt{'?'})	{
 	print <<HERE;
 
-	$0 [-n <rounds>] [-b <0-8>]
+	$0 [-n <rounds>] [-b <debug nth-Bingo and higher>]
 	
-	if nothing is specified then 2 times $Rounds rounds were made (~10 min runtime each)
+	If nothing is specified then 2 times <rounds> drawings are made:
+	first <rounds> tickets for 1 drawing, then <rounds> drawing for 1 ticket are created.
+	The default for <rounds> is $Rounds.
 	
-	1st round creates $Rounds tickets for 1 drawing, 2nd rounds creates $Rounds drawing for 1 ticket
+	To debug this program just set b to the number of nth-Bingo you want to verify.
+	Typical calls are :
 	
-	to debug this program just set b to the number of bingos you want to verify
-	typical calls:
 	$0
 		runs 2x $Rounds
 	
-	$0 -n 1 -b 0
-		debug for 1 ticket / 1 drawing
+	$0 -n 10 -b 0
+		10 dreawings each, debug everything
 	
-	$0 - n 100000000
-		fund 100 million times each of both round
+	$0 -n 100000000
+		run 2 times 100 million drawings
 	
 	$0 -n 1000 -b 1
-		debug every bingo
+		debug every Bingo
 		
 	$0 -n 100000 -b 2
-		debug double bingo and above
+		debug 2x-Bingo and above
 
 HERE
 	exit (0);
