@@ -176,14 +176,17 @@ sub CountResult ($$$$)	{
 	#	print current state after each multi-bingo and finally
 	#
 	if ($Bingo > 1 || $IsLast)	{
-		print "  results:";
-		foreach my $Bingo (sort { $a <=> $b } keys %{$Result})	{
-			print "     ", $Bingo, "x-Bingo: ", $Result->{$Bingo};
-		}
-		print "\r";
-	
-		if ($IsLast)	{
-			print "\n";
+		if ($IsLast || $main::Verbose)	{
+			print "  results:";
+			foreach my $Bingo (sort { $a <=> $b } keys %{$Result})	{
+				print "     ", $Bingo, "x-Bingo: ", $Result->{$Bingo};
+			}
+			
+			if ($IsLast)	{
+				print "\n";
+			} else	{
+				print "\r" ;
+			}
 		}
 	}
 }
@@ -195,6 +198,7 @@ sub CountResult ($$$$)	{
 #
 #############################################################################
 $main::Debug = 99;
+$main::Verbose = 1;
 
 my $Rounds = 10 * 1000 * 1000;
 
@@ -243,6 +247,18 @@ if (defined $h_Opt{n})	{
 if (defined $h_Opt{b})	{
 	$main::Debug = $h_Opt{b};
 }
+
+
+#	if the terminal is too small then do not print current state
+#
+my $Line = `stty -a | grep columns`;
+my $Col = (split (/;/,$Line))[2];
+my $Val = (split (/s /, $Col))[1];
+if ($Val < 100)	{
+	print STDERR "terminal has <100 columns ($Val) - will be less verbose\n";
+	$main::Verbose = 0;
+}
+
 
 #############################################################################
 #
