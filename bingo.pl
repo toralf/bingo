@@ -254,17 +254,6 @@ if (defined $h_Opt{b})	{
 }
 
 
-#	if the terminal is too small then do not print current state
-#
-my $Line = `stty -a | grep columns`;
-my $Col = (split (/;/,$Line))[2];
-my $Val = (split (/s /, $Col))[1];
-if ($Val < 100)	{
-	print STDERR "terminal has <100 columns ($Val) - will be less verbose\n";
-	$main::Verbose = 0;
-}
-
-
 #############################################################################
 #
 #	do it now
