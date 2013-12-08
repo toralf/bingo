@@ -182,9 +182,9 @@ sub CountResult ($$$$)	{
 	#
 	if ($Bingo > 1 || $IsLast)	{
 		if ($IsLast || $main::Verbose)	{
-			print "  results:";
+			print "  ";
 			foreach my $Bingo (sort { $a <=> $b } keys %{$Result})	{
-				print "     ", $Bingo, "x-Bingo: ", $Result->{$Bingo};
+				printf ("%12d", $Result->{$Bingo});
 			}
 			
 			if ($IsLast)	{
@@ -269,7 +269,8 @@ if ($Val < 100)	{
 #
 #	do it now
 #
-print "create $Rounds tickets for 1 drawing\n";
+print "create $Rounds tickets for 1 drawing:\n";
+print "      0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo    5x-Bingo\n";
 CreateDrawing (\%Drawing);
 %Result = ();
 foreach (1..$Rounds)	{
@@ -277,7 +278,8 @@ foreach (1..$Rounds)	{
 	CountResult (\@Ticket, \%Drawing, \%Result, $_ == $Rounds);
 }
 
-print "create $Rounds drawings for 1 ticket\n";
+print "create $Rounds drawings for 1 ticket:\n";
+print "      0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo    5x-Bingo\n";
 CreateTicket (\@Ticket);
 %Result = ();
 foreach (1..$Rounds)	{
