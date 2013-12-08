@@ -211,10 +211,10 @@ my @Ticket = ();
 my %Drawing = ();
 my %Result;
 
-my %h_Opt = ();
-getopts ('b:h?n:v:', \%h_Opt) or exit (1);
+my %Options = ();
+getopts ('b:h?n:v:', \%Options) or exit (1);
 
-if (defined $h_Opt{h} || defined $h_Opt{'?'})	{
+if (defined $Options{h} || defined $Options{'?'})	{
 	print <<HERE;
 
 	$0 [-n <rounds>] [-b <debug nth-Bingo and higher>] [-v <0|1>]
@@ -245,16 +245,16 @@ HERE
 	exit (0);
 }
 
-if (defined $h_Opt{n})	{
-	$Rounds = $h_Opt{n};
+if (defined $Options{n})	{
+	$Rounds = $Options{n};
 }
 
-if (defined $h_Opt{b})	{
-	$main::Debug = $h_Opt{b};
+if (defined $Options{b})	{
+	$main::Debug = $Options{b};
 }
 
-if (defined $h_Opt{v})	{
-	$main::Verbose = $h_Opt{v};
+if (defined $Options{v})	{
+	$main::Verbose = $Options{v};
 }
 
 
