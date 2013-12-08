@@ -203,7 +203,7 @@ sub CountResult ($$$$)	{
 #
 #############################################################################
 $main::Debug = 99;
-$main::Verbose = 1;
+$main::Verbose = 0;
 
 my $Rounds = 10 * 1000 * 1000;
 
@@ -212,12 +212,12 @@ my %Drawing = ();
 my %Result;
 
 my %h_Opt = ();
-getopts ('b:h?n:', \%h_Opt) or exit (1);
+getopts ('b:h?n:v:', \%h_Opt) or exit (1);
 
 if (defined $h_Opt{h} || defined $h_Opt{'?'})	{
 	print <<HERE;
 
-	$0 [-n <rounds>] [-b <debug nth-Bingo and higher>]
+	$0 [-n <rounds>] [-b <debug nth-Bingo and higher>] [-v <0|1>]
 	
 	If nothing is specified then 2 times <rounds> drawings are made:
 	first <rounds> tickets for 1 drawing, then <rounds> drawing for 1 ticket are created.
@@ -232,8 +232,8 @@ if (defined $h_Opt{h} || defined $h_Opt{'?'})	{
 	$0 -n 10 -b 0
 		10 dreawings each, debug everything
 	
-	$0 -n 100000000
-		run 2 times 100 million drawings
+	$0 -n 100000000 -v 1
+		run 2 times 100 million drawings with verbose output
 	
 	$0 -n 1000 -b 1
 		debug every Bingo
@@ -251,6 +251,10 @@ if (defined $h_Opt{n})	{
 
 if (defined $h_Opt{b})	{
 	$main::Debug = $h_Opt{b};
+}
+
+if (defined $h_Opt{v})	{
+	$main::Verbose = $h_Opt{v};
 }
 
 
