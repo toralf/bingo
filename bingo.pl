@@ -100,6 +100,11 @@ sub PrintTicket ($)	{
 #	lines are horizontal, vertical or diagonal
 #	lines are allowed to cross each other
 #
+#	TODO:
+#	pre-analyze %Drawings wrt to "min 5 numbers in a column"
+#	and "at least one number in each column" could speed up
+#	things - but at the cost of code readability
+#
 sub AnalyzeTicket ($$)	{
 	my ($Ticket, $Drawing) = @_;
 
