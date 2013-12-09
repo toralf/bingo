@@ -18,6 +18,8 @@ $| = 1;
 #############################################################################
 
 #	draw N numbers of the intervall (1..75)
+#	TODO: "Bingo! Die Umweltlotterie" uses a 2-tier drawing algorithm
+#	which will be implemented as soon as the details are available
 #
 sub CreateDrawing ($)	{
 	my ($Drawing) = @_;
