@@ -184,15 +184,9 @@ sub AnalyzeTicket ($$)	{
 }
 
 
-sub CountResult ($$$$)	{
-	my ($Ticket, $Drawing, $Result, $IsLast) = @_;
+sub PrintStats ($$$)	{
+	my ($Bingo, $Result, $IsLast) = @_;
 
-	my $Bingo = AnalyzeTicket ($Ticket, $Drawing);
-	$Result->{$Bingo}++;
-
-	#	if verbose print current state after each multi-bingo
-	#	but always finally
-	#
 	if (($Bingo > 1 && $main::Verbose) || $IsLast )	{
 		foreach my $Bingo (sort { $a <=> $b } keys %{$Result})	{
 			printf ("%12d", $Result->{$Bingo});
@@ -276,7 +270,9 @@ CreateDrawing (\%Drawing);
 %Result = ();
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
-	CountResult (\@Ticket, \%Drawing, \%Result, $_ == $Rounds);
+	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing);
+	$Result{$Bingo}++;
+	PrintStats ($Bingo, \%Result, $_ == $Rounds);
 }
 
 print "create $Rounds drawings for 1 ticket:\n$HeaderLine\n";
@@ -284,7 +280,9 @@ CreateTicket (\@Ticket);
 %Result = ();
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
-	CountResult (\@Ticket, \%Drawing, \%Result, $_ == $Rounds);
+	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing);
+	$Result{$Bingo}++;
+	PrintStats ($Bingo, \%Result, $_ == $Rounds);
 }
 
 
