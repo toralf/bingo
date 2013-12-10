@@ -166,6 +166,8 @@ sub AnalyzeTicket ($$)	{
 		$Bingo++;
 	}
 
+	#	parameter -b controls if a single or a multi-Bingo triggers the output
+	#
 	if ($Bingo >= $main::Debug)	{
 		print "\n==================\n";
 		PrintTicket ($Ticket);
