@@ -192,7 +192,6 @@ sub CountResult ($$$$)	{
 	#	but always finally
 	#
 	if (($Bingo > 1 && $main::Verbose) || $IsLast )	{
-		print "  ";
 		foreach my $Bingo (sort { $a <=> $b } keys %{$Result})	{
 			printf ("%12d", $Result->{$Bingo});
 		}
@@ -268,8 +267,9 @@ if (defined $Options{v})	{
 #
 #	do it now
 #
-print "create $Rounds tickets for 1 drawing:\n";
-print "      0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo    5x-Bingo\n";
+my $HeaderLine = "    0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo    5x-Bingo";
+
+print "create $Rounds tickets for 1 drawing:\n$HeaderLine\n";
 CreateDrawing (\%Drawing);
 %Result = ();
 foreach (1..$Rounds)	{
@@ -277,8 +277,7 @@ foreach (1..$Rounds)	{
 	CountResult (\@Ticket, \%Drawing, \%Result, $_ == $Rounds);
 }
 
-print "create $Rounds drawings for 1 ticket:\n";
-print "      0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo    5x-Bingo\n";
+print "create $Rounds drawings for 1 ticket:\n$HeaderLine\n";
 CreateTicket (\@Ticket);
 %Result = ();
 foreach (1..$Rounds)	{
