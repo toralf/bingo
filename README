@@ -7,3 +7,22 @@ bingo.pl : small perl scriptlet to do it
 
 bingo.ods : sheet with simulated odds
 
+A typical call gives (choose a terminal with 144 columns or more ) :
+
+$> time ./bingo.pl -v 1 -n 10000000
+create 10000000 tickets for 1 drawing:
+    0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo    5x-Bingo
+     9858550      139958        1474          18
+       col B       col I       col N       col G       col O       row 1       row 2       row 3       row 4       row 5        ullr        urll
+        3436           0       20051       20025           0       14256       14261       14113       14243       14214       14163       14198
+
+create 10000000 drawings for 1 ticket:
+    0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo    5x-Bingo
+     9818999      179023        1965          13
+       col B       col I       col N       col G       col O       row 1       row 2       row 3       row 4       row 5        ullr        urll
+       15172       15526       15150       15442       15066       15179       15115       15211       15316       15205       15430       15180
+
+
+real    15m22.831s
+user    15m22.207s
+sys     0m0.068s
