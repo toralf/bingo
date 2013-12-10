@@ -189,11 +189,7 @@ sub CountResult ($$$$)	{
 			printf ("%12d", $Result->{$Bingo});
 		}
 		
-		if ($IsLast)	{
-			print "\n";
-		} else	{
-			print "\r" ;
-		}
+		($IsLast) ? print "\n" : print "\r" ;
 	}
 }
 
