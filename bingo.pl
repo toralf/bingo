@@ -218,13 +218,14 @@ getopts ('b:h?n:v:', \%Options) or exit (1);
 if (defined $Options{h} || defined $Options{'?'})	{
 	print <<HERE;
 
-	$0 [-n <rounds>] [-b <debug nth-Bingo and higher>] [-v <0|1>]
+	$0 [-n <rounds>] [-b <n>] [-v <0|1>]
 	
 	If nothing is specified then 2 times <rounds> drawings are made:
 	first <rounds> tickets for 1 drawing, then <rounds> drawing for 1 ticket are created.
 	The default for <rounds> is $Rounds.
 	
-	To debug this program just set b to the number of nth-Bingo you want to verify.
+	Just set b to 1, 2 or higher for a detailed output of every n-Bingo and above.
+	
 	Typical calls are :
 	
 	$0
