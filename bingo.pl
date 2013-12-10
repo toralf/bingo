@@ -199,7 +199,20 @@ sub PrintStats ($$$)	{
 		}
 		
 		if ($IsLast)	{
-			print "\n";
+			print	"\n",
+				"       col B       col I       col N       col G       col O",
+				"       row 1       row 2       row 3       row 4       row 5",
+				"        ullr        urll\n"
+				;
+			
+			foreach my $i (0..4)	{
+				printf ("%12d", $Stats->{col}->{$i});
+			}
+			foreach my $i (0..4)	{
+				printf ("%12d", $Stats->{row}->{$i});
+			}
+			printf ("%12d%12d\n", $Stats->{ullr}, $Stats->{urll});
+			
 		} else	{
 			print "\r" ;
 		}
@@ -234,6 +247,7 @@ if (defined $Options{h} || defined $Options{'?'})	{
 	The default for <rounds> is $Rounds.
 	
 	Just set b to 1, 2 or higher for a detailed output of every n-Bingo and above.
+	Set your terminal column size to 144 or more for a better look.
 	
 	Typical calls are :
 	
@@ -277,16 +291,26 @@ my $HeaderLine = "    0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo  
 
 print "create $Rounds tickets for 1 drawing:\n$HeaderLine\n";
 CreateDrawing (\%Drawing);
-$main::Stats{nT1D} = {};
+%{$main::Stats{nT1D}} = (
+	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
+	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
+	ullr => 0, urll => 0,
+);
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
 	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D});
 	PrintStats ($Bingo, $main::Stats{nT1D}, $_ == $Rounds);
 }
 
+print "\n";
+
 print "create $Rounds drawings for 1 ticket:\n$HeaderLine\n";
 CreateTicket (\@Ticket);
-$main::Stats{nD1T} = {};
+%{$main::Stats{nD1T}} = (
+	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
+	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
+	ullr => 0, urll => 0,
+);
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
 	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T});
