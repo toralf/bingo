@@ -141,22 +141,30 @@ sub AnalyzeTicket ($$)	{
 	#	horizontal line == a row
 	#
 	foreach my $Row (0..4)	{
-		$Bingo++ if ($Hit[0][$Row] && $Hit[1][$Row] && $Hit[2][$Row] && $Hit[3][$Row] && $Hit[4][$Row]);
+		if ($Hit[0][$Row] && $Hit[1][$Row] && $Hit[2][$Row] && $Hit[3][$Row] && $Hit[4][$Row])	{
+			$Bingo++;
+		}
 	}
 
 	#	vertical line == a column
 	#
 	foreach my $Col (0..4)	{
-		$Bingo++ if ($Hit[$Col][0] && $Hit[$Col][1] && $Hit[$Col][2] && $Hit[$Col][3] && $Hit[$Col][4]);
+		if ($Hit[$Col][0] && $Hit[$Col][1] && $Hit[$Col][2] && $Hit[$Col][3] && $Hit[$Col][4])	{
+			$Bingo++;
+		}
 	}
 
 	#	upper left to lower right
 	#
-	$Bingo++ if ($Hit[0][0] && $Hit[1][1] && $Hit[2][2] && $Hit[3][3] && $Hit[4][4]);
+	if ($Hit[0][0] && $Hit[1][1] && $Hit[2][2] && $Hit[3][3] && $Hit[4][4])	{
+		$Bingo++;
+	}
 
 	#	upper right to lower left
 	#
-	$Bingo++ if ($Hit[4][0] && $Hit[3][1] && $Hit[2][2] && $Hit[1][3] && $Hit[0][4]);
+	if ($Hit[4][0] && $Hit[3][1] && $Hit[2][2] && $Hit[1][3] && $Hit[0][4])	{
+		$Bingo++;
+	}
 
 	if ($Bingo >= $main::Debug)	{
 		print "\n==================\n";
