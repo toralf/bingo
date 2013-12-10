@@ -191,11 +191,11 @@ sub AnalyzeTicket ($$$)	{
 
 
 sub PrintStats ($$$)	{
-	my ($Bingo, $Result, $IsLast) = @_;
+	my ($Bingo, $Stats, $IsLast) = @_;
 
 	if (($Bingo > 1 && $main::Verbose) || $IsLast )	{
-		foreach my $k (sort { $a <=> $b } keys %{$Result})	{
-			printf ("%12d", $Result->{$k});
+		foreach my $k (sort { $a <=> $b } keys %{$Stats->{nBingo}})	{
+			printf ("%12d", $Stats->{nBingo}->{$k});
 		}
 		
 		if ($IsLast)	{
@@ -281,7 +281,7 @@ $main::Stats{nT1D} = {};
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
 	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D});
-	PrintStats ($Bingo, $main::Stats{nT1D}->{nBingo}, $_ == $Rounds);
+	PrintStats ($Bingo, $main::Stats{nT1D}, $_ == $Rounds);
 }
 
 print "create $Rounds drawings for 1 ticket:\n$HeaderLine\n";
@@ -290,7 +290,7 @@ $main::Stats{nD1T} = {};
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
 	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T});
-	PrintStats ($Bingo, $main::Stats{nD1T}->{nBingo}, $_ == $Rounds);
+	PrintStats ($Bingo, $main::Stats{nD1T}, $_ == $Rounds);
 }
 
 print "\n";
