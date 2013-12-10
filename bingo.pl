@@ -107,8 +107,8 @@ sub PrintTicket ($)	{
 #	and "at least one number in each column" could speed up
 #	things - but at the cost of code readability
 #
-sub AnalyzeTicket ($$)	{
-	my ($Ticket, $Drawing) = @_;
+sub AnalyzeTicket ($$$)	{
+	my ($Ticket, $Drawing, $Stats) = @_;
 
 	#	create a 5x5 array and mark all positions where a number is drawn
 	#	we use 'x' == TRUE, '' == FALSE
@@ -179,6 +179,8 @@ sub AnalyzeTicket ($$)	{
 		print "bingo(s): $Bingo\n";
 		print "==================\n\n";
 	}
+	
+	$Stats->{nBingo}->{$Bingo}++;
 	
 	return $Bingo;
 }
@@ -267,19 +269,19 @@ my $HeaderLine = "    0x-Bingo    1x-Bingo    2x-Bingo    3x-Bingo    4x-Bingo  
 
 print "create $Rounds tickets for 1 drawing:\n$HeaderLine\n";
 CreateDrawing (\%Drawing);
+$main::Stats{nT1D} = {};
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
-	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing);
-	$main::Stats{nT1D}->{nBingo}->{$Bingo}++;
+	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D});
 	PrintStats ($Bingo, $main::Stats{nT1D}->{nBingo}, $_ == $Rounds);
 }
 
 print "create $Rounds drawings for 1 ticket:\n$HeaderLine\n";
 CreateTicket (\@Ticket);
+$main::Stats{nD1T} = {};
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
-	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing);
-	$main::Stats{nD1T}->{nBingo}->{$Bingo}++;
+	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T});
 	PrintStats ($Bingo, $main::Stats{nD1T}->{nBingo}, $_ == $Rounds);
 }
 
