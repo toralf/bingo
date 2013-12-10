@@ -180,20 +180,19 @@ sub CountResult ($$$$)	{
 	my $Bingo = AnalyzeTicket ($Ticket, $Drawing);
 	$Result->{$Bingo}++;
 
-	#	print current state after each multi-bingo and finally
+	#	if verbose print current state after each multi-bingo
+	#	but always finally
 	#
-	if ($Bingo > 1 || $IsLast)	{
-		if ($IsLast || $main::Verbose)	{
-			print "  ";
-			foreach my $Bingo (sort { $a <=> $b } keys %{$Result})	{
-				printf ("%12d", $Result->{$Bingo});
-			}
-			
-			if ($IsLast)	{
-				print "\n";
-			} else	{
-				print "\r" ;
-			}
+	if (($Bingo > 1 && $main::Verbose) || $IsLast )	{
+		print "  ";
+		foreach my $Bingo (sort { $a <=> $b } keys %{$Result})	{
+			printf ("%12d", $Result->{$Bingo});
+		}
+		
+		if ($IsLast)	{
+			print "\n";
+		} else	{
+			print "\r" ;
 		}
 	}
 }
