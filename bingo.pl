@@ -198,7 +198,11 @@ sub PrintStats ($$$)	{
 			printf ("%12d", $Result->{$k});
 		}
 		
-		($IsLast) ? print "\n" : print "\r" ;
+		if ($IsLast)	{
+			print "\n";
+		} else	{
+			print "\r" ;
+		}
 	}
 }
 
