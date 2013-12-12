@@ -26,3 +26,21 @@ create 10000000 drawings for 1 ticket:
 real    15m22.831s
 user    15m22.207s
 sys     0m0.068s
+
+
+A subsequent call with a less wider output:
+
+
+$ ./bingo.pl -v 1 -n 10000000
+create 10000000 tickets for 1 drawing:
+ 0x-Bingo 1x-Bingo 2x-Bingo 3x-Bingo 4x-Bingo 5x-Bingo
+  9828386   169571     2025       18
+    col B    col I    col N    col G    col O    row 1    row 2    row 3    row 4    row 5     ullr     urll
+     3375        0    69970        0     3395    13903    13862    13775    13957    13845    13799    13794
+
+create 10000000 drawings for 1 ticket:
+ 0x-Bingo 1x-Bingo 2x-Bingo 3x-Bingo 4x-Bingo 5x-Bingo
+  9818687   179400     1892       21
+    col B    col I    col N    col G    col O    row 1    row 2    row 3    row 4    row 5     ullr     urll
+    15048    15365    15199    15075    15182    15575    15349    15328    15208    15282    15455    15181
+
