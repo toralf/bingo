@@ -127,6 +127,47 @@ sub MarkHits ($$$)	 {
 }
 
 
+sub AnalyzeHits ($$)	{
+	my ($Hit, $Stats) = @_;
+	
+	my $Bingo = 0;
+
+	#	horizontal line == a row
+	#
+	foreach my $Row (0..4)	{
+		if ($Hit->[0]->[$Row] && $Hit->[1]->[$Row] && $Hit->[2]->[$Row] && $Hit->[3]->[$Row] && $Hit->[4]->[$Row])	{
+			$Bingo++;
+			$Stats->{row}->{$Row}++;
+		}
+	}
+
+	#	vertical line == a column
+	#
+	foreach my $Col (0..4)	{
+		if ($Hit->[$Col]->[0] && $Hit->[$Col]->[1] && $Hit->[$Col]->[2] && $Hit->[$Col]->[3] && $Hit->[$Col]->[4])	{
+			$Bingo++;
+			$Stats->{col}->{$Col}++;
+		}
+	}
+
+	#	upper left to lower right
+	#
+	if ($Hit->[0]->[0] && $Hit->[1]->[1] && $Hit->[2]->[2] && $Hit->[3]->[3] && $Hit->[4]->[4])	{
+		$Bingo++;
+		$Stats->{ullr}++;
+	}
+
+	#	upper right to lower left
+	#
+	if ($Hit->[4]->[0] && $Hit->[3]->[1] && $Hit->[2]->[2] && $Hit->[1]->[3] && $Hit->[0]->[4])	{
+		$Bingo++;
+		$Stats->{urll}++;
+	}
+
+	return $Bingo;
+}
+
+
 #	count the amount of bingo's (bingo == 5 hits in a line)
 #	lines are horizontal, vertical or diagonal
 #	lines are allowed to cross each other
@@ -140,41 +181,8 @@ sub AnalyzeTicket ($$$$)	{
 
 	my @Hit = ();
 	MarkHits ($Ticket, $Drawing, \@Hit);
+	my $Bingo = AnalyzeHits (\@Hit, $Stats);
 	
-	my $Bingo = 0;
-
-	#	horizontal line == a row
-	#
-	foreach my $Row (0..4)	{
-		if ($Hit[0][$Row] && $Hit[1][$Row] && $Hit[2][$Row] && $Hit[3][$Row] && $Hit[4][$Row])	{
-			$Bingo++;
-			$Stats->{row}->{$Row}++;
-		}
-	}
-
-	#	vertical line == a column
-	#
-	foreach my $Col (0..4)	{
-		if ($Hit[$Col][0] && $Hit[$Col][1] && $Hit[$Col][2] && $Hit[$Col][3] && $Hit[$Col][4])	{
-			$Bingo++;
-			$Stats->{col}->{$Col}++;
-		}
-	}
-
-	#	upper left to lower right
-	#
-	if ($Hit[0][0] && $Hit[1][1] && $Hit[2][2] && $Hit[3][3] && $Hit[4][4])	{
-		$Bingo++;
-		$Stats->{ullr}++;
-	}
-
-	#	upper right to lower left
-	#
-	if ($Hit[4][0] && $Hit[3][1] && $Hit[2][2] && $Hit[1][3] && $Hit[0][4])	{
-		$Bingo++;
-		$Stats->{urll}++;
-	}
-
 	#	parameter -b controls if a single or a multi-Bingo triggers the output
 	#
 	if ($Bingo >= $Debug)	{
