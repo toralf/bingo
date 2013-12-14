@@ -99,24 +99,14 @@ sub PrintTicket ($)	{
 }
 
 
-#	count the amount of bingo's (bingo == 5 hits in a line)
-#	lines are horizontal, vertical or diagonal
-#	lines are allowed to cross each other
+#	mark all positions where a number is drawn, 'x' == TRUE, '' == FALSE
 #
-#	TODO:
-#	pre-analyze %Drawings wrt to "min 5 numbers in a column"
-#	and "at least one number in each column" could speed up
-#	things - but at the cost of code readability
-#
-sub AnalyzeTicket ($$$$)	{
-	my ($Ticket, $Drawing, $Stats, $Debug) = @_;
+sub MarkHits ($$$)	 {
+	my ($Ticket, $Drawing, $Hit) = @_;
 
-	#	create a 5x5 array and mark all positions where a number is drawn
-	#	we use 'x' == TRUE, '' == FALSE
+	#	the initialization might not be necessary, but be just on the safe side
 	#
-	#	the initialization is not really necessary, but just be on the safe side
-	#
-	my @Hit = (
+	@{$Hit} = (
 		[ '', '', '', '', '' ],
 		[ '', '', '', '', '' ],
 		[ '', '', '', '', '' ],
@@ -130,13 +120,27 @@ sub AnalyzeTicket ($$$$)	{
 		foreach my $Col (0..4)	{
 			my $d = $Ticket->[$Col]->[$Row];
 			if (exists $Drawing->{$d})	{
-				$Hit[$Col][$Row] = 'x';
+				$Hit->[$Col]->[$Row] = 'x';
 			}
 		}
 	}
+}
 
-	#	now check how often we do have 5 marks in a line
-	#
+
+#	count the amount of bingo's (bingo == 5 hits in a line)
+#	lines are horizontal, vertical or diagonal
+#	lines are allowed to cross each other
+#
+#	pre-analyze %Drawing wrt to "min 5 numbers in a column"
+#	or "at least one number in each column" would speed up
+#	things - but at the cost of code readability
+#
+sub AnalyzeTicket ($$$$)	{
+	my ($Ticket, $Drawing, $Stats, $Debug) = @_;
+
+	my @Hit = ();
+	MarkHits ($Ticket, $Drawing, \@Hit);
+	
 	my $Bingo = 0;
 
 	#	horizontal line == a row
