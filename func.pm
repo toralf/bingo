@@ -12,7 +12,7 @@ use Exporter;
 
 our @ISA= qw( Exporter );
 
-our @EXPORT = qw( CreateDrawing PrintDrawing CreateTicket PrintTicket AnalyzeTicket PrintStats);
+our @EXPORT = qw( CreateDrawing PrintDrawing CreateTicket PrintTicket AnalyzeHits AnalyzeTicket PrintStats);
 
 
 #############################################################################
