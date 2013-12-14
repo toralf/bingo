@@ -20,7 +20,6 @@ $| = 1;
 #
 #############################################################################
 $main::Debug = 99;
-$main::Verbose = 0;
 %main::Stats = ();
 
 my $Rounds = 10 * 1000 * 1000;
@@ -34,7 +33,7 @@ getopts ('b:h?n:v:', \%Options) or exit (1);
 if (defined $Options{h} || defined $Options{'?'})	{
 	print <<HERE;
 
-	$0 [-n <rounds>] [-b <n>] [-v <0|1>]
+	$0 [-n <rounds>] [-b <n>]
 	
 	If nothing is specified then 2 times <rounds> drawings are made:
 	first <rounds> tickets for 1 drawing, then <rounds> drawing for 1 ticket are created.
@@ -48,11 +47,11 @@ if (defined $Options{h} || defined $Options{'?'})	{
 	$0
 		runs 2x $Rounds
 	
-	$0 -n 10 -b 0
-		10 dreawings each, debug everything
+	$0 -n 1 -b 0
+		run 2 times 1 drawings, debug everything
 	
-	$0 -n 100000000 -v 1
-		run 2 times 100 million drawings with verbose output
+	$0 -n 100000000
+		run 2 times 100 million drawings
 	
 	$0 -n 1000 -b 1
 		debug every Bingo
@@ -72,10 +71,6 @@ if (defined $Options{b})	{
 	$main::Debug = $Options{b};
 }
 
-if (defined $Options{v})	{
-	$main::Verbose = $Options{v};
-}
-
 
 #############################################################################
 #
@@ -92,9 +87,9 @@ CreateDrawing (\%Drawing);
 );
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
-	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D}, $main::Debug);
-	PrintStats ($Bingo, $main::Stats{nT1D}, $_ == $Rounds, $main::Verbose);
+	AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D}, $main::Debug);
 }
+PrintStats ($main::Stats{nT1D});
 
 print "\n";
 
@@ -107,9 +102,10 @@ CreateTicket (\@Ticket);
 );
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
-	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T}, $main::Debug);
-	PrintStats ($Bingo, $main::Stats{nD1T}, $_ == $Rounds, $main::Verbose);
+	AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T}, $main::Debug);
 }
+PrintStats ($main::Stats{nD1T});
 
 print "\n";
+
 exit (0);

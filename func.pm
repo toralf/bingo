@@ -186,38 +186,28 @@ sub AnalyzeTicket ($$$$)	{
 	}
 	
 	$Stats->{nBingo}->{$Bingo}++;
-	
-	return $Bingo;
 }
 
 
-sub PrintStats ($$$$)	{
-	my ($Bingo, $Stats, $IsLast, $Verbose) = @_;
-
-	if (($Bingo > 1 && $Verbose) || $IsLast )	{
-		foreach my $k (sort { $a <=> $b } keys %{$Stats->{nBingo}})	{
-			printf ("%9d", $Stats->{nBingo}->{$k});
-		}
-		
-		if ($IsLast)	{
-			print	"\n",
-				"    col B    col I    col N    col G    col O",
-				"    row 1    row 2    row 3    row 4    row 5",
-				"     ullr     urll\n"
-				;
-			
-			foreach my $i (0..4)	{
-				printf ("%9d", $Stats->{col}->{$i});
-			}
-			foreach my $i (0..4)	{
-				printf ("%9d", $Stats->{row}->{$i});
-			}
-			printf ("%9d%9d\n", $Stats->{ullr}, $Stats->{urll});
-			
-		} else	{
-			print "\r" ;
-		}
+sub PrintStats ($)	{
+	my ($Stats) = @_;
+	
+	foreach my $k (sort { $a <=> $b } keys %{$Stats->{nBingo}})	{
+		printf ("%9d", $Stats->{nBingo}->{$k});
 	}
+	print	"\n",
+		"    col B    col I    col N    col G    col O",
+		"    row 1    row 2    row 3    row 4    row 5",
+		"     ullr     urll\n"
+		;
+	
+	foreach my $i (0..4)	{
+		printf ("%9d", $Stats->{col}->{$i});
+	}
+	foreach my $i (0..4)	{
+		printf ("%9d", $Stats->{row}->{$i});
+	}
+	printf ("%9d%9d\n", $Stats->{ullr}, $Stats->{urll});
 }
 
 
