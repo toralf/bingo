@@ -164,6 +164,8 @@ sub AnalyzeHits ($$)	{
 		$Stats->{urll}++;
 	}
 
+	$Stats->{nBingo}->{$Bingo}++;
+	
 	return $Bingo;
 }
 
@@ -196,8 +198,6 @@ sub AnalyzeTicket ($$$$)	{
 		print "bingo(s): $Bingo\n";
 		print "==================\n\n";
 	}
-	
-	$Stats->{nBingo}->{$Bingo}++;
 }
 
 
