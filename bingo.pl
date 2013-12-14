@@ -92,8 +92,8 @@ CreateDrawing (\%Drawing);
 );
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
-	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D});
-	PrintStats ($Bingo, $main::Stats{nT1D}, $_ == $Rounds);
+	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D}, $main::Debug);
+	PrintStats ($Bingo, $main::Stats{nT1D}, $_ == $Rounds, $main::Verbose);
 }
 
 print "\n";
@@ -107,8 +107,8 @@ CreateTicket (\@Ticket);
 );
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
-	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T});
-	PrintStats ($Bingo, $main::Stats{nD1T}, $_ == $Rounds);
+	my $Bingo = AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T}, $main::Debug);
+	PrintStats ($Bingo, $main::Stats{nD1T}, $_ == $Rounds, $main::Verbose);
 }
 
 print "\n";

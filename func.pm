@@ -108,8 +108,8 @@ sub PrintTicket ($)	{
 #	and "at least one number in each column" could speed up
 #	things - but at the cost of code readability
 #
-sub AnalyzeTicket ($$$)	{
-	my ($Ticket, $Drawing, $Stats) = @_;
+sub AnalyzeTicket ($$$$)	{
+	my ($Ticket, $Drawing, $Stats, $Debug) = @_;
 
 	#	create a 5x5 array and mark all positions where a number is drawn
 	#	we use 'x' == TRUE, '' == FALSE
@@ -173,7 +173,7 @@ sub AnalyzeTicket ($$$)	{
 
 	#	parameter -b controls if a single or a multi-Bingo triggers the output
 	#
-	if ($Bingo >= $main::Debug)	{
+	if ($Bingo >= $Debug)	{
 		print "\n==================\n";
 		PrintTicket ($Ticket);
 		print "\n";
@@ -191,10 +191,10 @@ sub AnalyzeTicket ($$$)	{
 }
 
 
-sub PrintStats ($$$)	{
-	my ($Bingo, $Stats, $IsLast) = @_;
+sub PrintStats ($$$$)	{
+	my ($Bingo, $Stats, $IsLast, $Verbose) = @_;
 
-	if (($Bingo > 1 && $main::Verbose) || $IsLast )	{
+	if (($Bingo > 1 && $Verbose) || $IsLast )	{
 		foreach my $k (sort { $a <=> $b } keys %{$Stats->{nBingo}})	{
 			printf ("%9d", $Stats->{nBingo}->{$k});
 		}
