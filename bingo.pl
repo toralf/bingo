@@ -76,7 +76,7 @@ if (defined $Options{b})	{
 #
 #	do it now
 #
-my $HeaderLine = " 0x-Bingo 1x-Bingo 2x-Bingo 3x-Bingo 4x-Bingo 5x-Bingo";
+my $HeaderLine = "  0-Bingo  1-Bingo  2-Bingo  3-Bingo  4-Bingo  5-Bingo";
 
 print "create $Rounds tickets for 1 drawing:\n$HeaderLine\n";
 CreateDrawing (\%Drawing);
