@@ -19,8 +19,8 @@ $| = 1;
 #	MAIN
 #
 #############################################################################
-$main::Debug = 99;
-%main::Stats = ();
+my $Debug = 99;
+my %Stats = ();
 
 my $Rounds = 10 * 1000 * 1000;
 
@@ -68,7 +68,7 @@ if (defined $Options{n})	{
 }
 
 if (defined $Options{b})	{
-	$main::Debug = $Options{b};
+	$Debug = $Options{b};
 }
 
 
@@ -80,31 +80,31 @@ my $HeaderLine = " 0x-Bingo 1x-Bingo 2x-Bingo 3x-Bingo 4x-Bingo 5x-Bingo";
 
 print "create $Rounds tickets for 1 drawing:\n$HeaderLine\n";
 CreateDrawing (\%Drawing);
-%{$main::Stats{nT1D}} = (
+%{$Stats{nT1D}} = (
 	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	ullr => 0, urll => 0,
 );
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
-	AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nT1D}, $main::Debug);
+	AnalyzeTicket (\@Ticket, \%Drawing, $Stats{nT1D}, $Debug);
 }
-PrintStats ($main::Stats{nT1D});
+PrintStats ($Stats{nT1D});
 
 print "\n";
 
 print "create $Rounds drawings for 1 ticket:\n$HeaderLine\n";
 CreateTicket (\@Ticket);
-%{$main::Stats{nD1T}} = (
+%{$Stats{nD1T}} = (
 	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	ullr => 0, urll => 0,
 );
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
-	AnalyzeTicket (\@Ticket, \%Drawing, $main::Stats{nD1T}, $main::Debug);
+	AnalyzeTicket (\@Ticket, \%Drawing, $Stats{nD1T}, $Debug);
 }
-PrintStats ($main::Stats{nD1T});
+PrintStats ($Stats{nD1T});
 
 print "\n";
 
