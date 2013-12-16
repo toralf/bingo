@@ -28,7 +28,7 @@ my @Ticket = ();
 my %Drawing = ();
 
 my %Options = ();
-getopts ('b:h?n:v:', \%Options) or exit (1);
+getopts ('b:h?n:', \%Options) or exit (1);
 
 if (defined $Options{h} || defined $Options{'?'})	{
 	print <<HERE;
@@ -76,36 +76,33 @@ if (defined $Options{b})	{
 #
 #	do it now
 #
-my $HeaderLine = "  0-Bingo  1-Bingo  2-Bingo  3-Bingo  4-Bingo  5-Bingo";
 
-print "create $Rounds tickets for 1 drawing:\n$HeaderLine\n";
+print "create $Rounds tickets for 1 drawing:\n";
 CreateDrawing (\%Drawing);
-%{$Stats{nT1D}} = (
+%Stats = (
 	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	ullr => 0, urll => 0,
 );
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
-	AnalyzeTicket (\@Ticket, \%Drawing, $Stats{nT1D}, $Debug);
+	AnalyzeTicket (\@Ticket, \%Drawing, \%Stats, $Debug);
 }
-PrintStats ($Stats{nT1D});
-
+PrintStats (\%Stats);
 print "\n";
 
-print "create $Rounds drawings for 1 ticket:\n$HeaderLine\n";
+print "create $Rounds drawings for 1 ticket:\n";
 CreateTicket (\@Ticket);
-%{$Stats{nD1T}} = (
+%Stats = (
 	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
 	ullr => 0, urll => 0,
 );
 foreach (1..$Rounds)	{
 	CreateDrawing (\%Drawing);
-	AnalyzeTicket (\@Ticket, \%Drawing, $Stats{nD1T}, $Debug);
+	AnalyzeTicket (\@Ticket, \%Drawing, \%Stats, $Debug);
 }
-PrintStats ($Stats{nD1T});
-
+PrintStats (\%Stats);
 print "\n";
 
 exit (0);

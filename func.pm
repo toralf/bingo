@@ -204,6 +204,7 @@ sub AnalyzeTicket ($$$$)	{
 sub PrintStats ($)	{
 	my ($Stats) = @_;
 	
+	print "  0-Bingo  1-Bingo  2-Bingo  3-Bingo  4-Bingo  5-Bingo  6-Bingo  7-Bingo  8-Bingo\n";
 	foreach my $k (sort { $a <=> $b } keys %{$Stats->{nBingo}})	{
 		printf ("%9d", $Stats->{nBingo}->{$k});
 	}
