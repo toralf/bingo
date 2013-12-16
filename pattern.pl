@@ -55,25 +55,25 @@ if (defined $Options{d})	{
 #	do it now
 #
 if ($Debug)	{
-	print "\e[2J";		# position the cursor at (0,0)
+	print "\e[2J";					# clear terminal
 }
 
 #	initialize a hash, where each key is reference
 #	to a subhash with keys either being '' or in 1..8,
 #	there values are the corresponding amounts of Bingo's
 #
-%{$Stats{Hits}} = (map { $_ => {map { $_ => "" } 0..8} } 1..22);
+%{$Stats{Hits}} = (map { $_ => {map { $_ => "" } 0..8} } 0..22);
 
-#	the idea is to abuse a 2^25 big integer as a bit field
-#	where each "1" means "position is drawn for this pattern"
+#	idea is to interprete an integer as a bit field
+#	where a "1" means "position of this pattern is drawn"
 #
-HITS: foreach my $i (1..2**25)	{
-	my @Hit = (				#		$pos
-		[ '', '', '', '', '' ],		# col B		 0.. 4
-		[ '', '', '', '', '' ],		# col I		 5.. 9
-		[ '', '', '', '', '' ],		# col N		10..14
-		[ '', '', '', '', '' ],		# col G		15..19
-		[ '', '', '', '', '' ],		# col O		20..24
+HITS: foreach my $i (0..2**25-1)	{
+	my @Hit = (					# column	$pos
+		[ '', '', '', '', '' ],			# B		 0.. 4
+		[ '', '', '', '', '' ],			# I		 5.. 9
+		[ '', '', '', '', '' ],			# N		10..14
+		[ '', '', '', '', '' ],			# G		15..19
+		[ '', '', '', '', '' ],			# O		20..24
 	);
 	
 	my $Hits = 0;					# amount of bits set to "1"
@@ -98,14 +98,14 @@ HITS: foreach my $i (1..2**25)	{
 			PrintTicket (\@Hit);
 			print "bingo=$Bingo\n";
 		} else	{
-			print "\e[0;0H\ni=$i";
+			print "\e[0;0H\ni=$i";		# position the cursor at (0,0)
 		}
 		print "\n";
 	}	
 }
 
 print "\nHits 0-Bingo 1-Bingo 2-Bingo 3-Bingo 4-Bingo 5-Bingo 6-Bingo 7-Bingo 8-Bingo\n";
-foreach my $Hits (1..22)	{
+foreach my $Hits (0..22)	{
 	printf ("%4i", $Hits);
 	foreach my $Bingo (0..8)	{
 		 printf ("%8s", $Stats{Hits}->{$Hits}->{$Bingo});
