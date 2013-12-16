@@ -54,21 +54,18 @@ if (defined $Options{d})	{
 #
 #	do it now
 #
-
 if ($Debug)	{
-	print "\e[2J";
+	print "\e[2J";		# position the cursor at (0,0)
 }
 
-#	be paranoid : do not rely on auto-vivication here
-#
-#	initialize a hash with keys 1..22, each key is reference
-#	to a subhash with keys either '' or 1..8
-#	the values are the appropriate amounts of Bingo's
+#	initialize a hash, where each key is reference
+#	to a subhash with keys either being '' or in 1..8,
+#	there values are the corresponding amounts of Bingo's
 #
 %{$Stats{Hits}} = (map { $_ => {map { $_ => "" } 0..8} } 1..22);
 
 #	the idea is to abuse a 2^25 big integer as a bit field
-#	where each "1" means "marked" and each "0" means "not marked"
+#	where each "1" means "position is drawn for this pattern"
 #
 HITS: foreach my $i (1..2**25)	{
 	my @Hit = (				#		$pos
@@ -116,5 +113,6 @@ foreach my $Hits (1..22)	{
 	print "\n"
 }
 print "\n";
+PrintStats (\%Stats);
 
 exit (0);
