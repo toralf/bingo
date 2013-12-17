@@ -54,7 +54,7 @@ if (defined $Options{d})	{
 #
 #	do it now
 #
-if ($Debug)	{
+if ($Debug == 1)	{
 	print "\e[2J";					# clear terminal
 }
 
