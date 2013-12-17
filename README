@@ -3,7 +3,7 @@ README
 The goal of this project is to find out the differences between the official
 proposed odds of the german lottery "Bingo! Die Umweltlotterie" in
 http://www.lotto-niedersachsen.de/s/managed_html/536/index.html
-and the results found out here and/or published in the literature.
+and the results calculated by me or published by others.
 
 
 
@@ -14,6 +14,8 @@ Files:
 =============================================================================
 bingo.pl:	Monte-Carlo simulation of the standard Bingo
 
-pattern.pl:	computer-based classification of the drawing patterns
+pattern.pl:	computer-based classification of all drawing patterns
+
+func.pm:	common Perl functions
 
 bingo.ods:	mathematical analysis and results from Monte-Carlo
