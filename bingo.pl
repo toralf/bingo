@@ -9,7 +9,6 @@ use diagnostics;
 $diagnostics::PRETTY = 1;
 
 use Getopt::Std;
-# use Math::Random::Secure qw(rand);
 use func;
 
 $| = 1;

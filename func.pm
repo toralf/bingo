@@ -9,10 +9,11 @@ use strict;
 use diagnostics;
 $diagnostics::PRETTY = 1;
 use Exporter;
+# use Math::Random::Secure qw(rand);
 
-our @ISA= qw( Exporter );
+our @ISA= qw(Exporter);
 
-our @EXPORT = qw( CreateDrawing PrintDrawing CreateTicket PrintTicket AnalyzeHits AnalyzeTicket PrintStats);
+our @EXPORT = qw(CreateDrawing PrintDrawing CreateTicket PrintTicket AnalyzeHits AnalyzeTicket PrintStats);
 
 
 #############################################################################
