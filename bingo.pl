@@ -37,10 +37,8 @@ if (defined $Options{h} || defined $Options{'?'})	{
 	If nothing is specified then 2 times <rounds> drawings are made:
 	first <rounds> tickets for 1 drawing, then <rounds> drawing for 1 ticket are created.
 	The default for <rounds> is $Rounds.
-	
-	Just set b to 1, 2 or higher for a detailed output of every n-Bingo and above.
+	Just set b to 1, 2 or higher for a detailed output of every b-Bingo and above.
 	Set your terminal column size to 120 for a better look.
-	
 	Typical calls are :
 	
 	$0
@@ -78,10 +76,14 @@ if (defined $Options{b})	{
 
 print "create $Rounds tickets for 1 drawing:\n";
 CreateDrawing (\%Drawing);
+
+#	we do count every Bingo here, meaning a 2-Bingo is counted as
+#	2 Bingos with respect to their column/row/diagonal
+#
 %Stats = (
-	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
-	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },
-	ullr => 0, urll => 0,
+	col => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },	# columns B - O
+	row => { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0 },	# 5 rows
+	ullr => 0, urll => 0,	# 2 diagonals ("upper left lower right" and ...)
 );
 foreach (1..$Rounds)	{
 	CreateTicket (\@Ticket);
