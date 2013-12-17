@@ -21,18 +21,17 @@ our @EXPORT = qw(CreateDrawing PrintDrawing CreateTicket PrintTicket AnalyzeHits
 #############################################################################
 
 
-#	draw N numbers of the intervall (1..75)
+#	draw 22 numbers of the intervall (1..75)
 #
 sub CreateDrawing ($)	{
 	my ($Drawing) = @_;
 
 	my @M = (1..75);
-	my $N = 22;
 	
 	%{$Drawing} = (
 			map { $_ => 1 }
 			map { splice (@M, int rand (scalar @M), 1) }
-			1..$N
+			1..22
 	);
 }
 
