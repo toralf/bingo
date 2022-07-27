@@ -1,3 +1,6 @@
+[![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+
+
 # confute the odds of the german lottery "Bingo! Die Umweltlotterie"
 
 ## goal
